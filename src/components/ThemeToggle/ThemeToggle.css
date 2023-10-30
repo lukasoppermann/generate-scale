@@ -1,0 +1,13 @@
+.ThemeToggle {
+  & .Toggle {
+    & .toggle__fill {
+      background-color: #ffcb4c;
+    }
+    & input:checked + .toggle__fill {
+      background-color: #fffbc4;
+    }
+    & .switch__icon.checked {
+      color: #000;
+    }
+  }
+}

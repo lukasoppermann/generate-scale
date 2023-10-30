@@ -1,0 +1,45 @@
+.Disclosure {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+  & .header {
+    font-weight: 400;
+  }
+  & .header::before {
+    font-size: 10px;
+    color: var(--text-color);
+    opacity: 0.5;
+    content: "▶";
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 0.3s ease-in-out;
+  }
+  & .content {
+    padding-left: 16px;
+    height: 0;
+    overflow: hidden;
+    transition: 0.1s ease-in-out;
+    opacity: 0;
+    & > :first-child:where(h1, h2, h3, h4, h5) {
+      margin-top: 0;
+    }
+  }
+  &:is(.is-open) {
+    & .header::before {
+      font-size: 10px;
+      color: var(--text-color);
+      opacity: 0.5;
+      content: "▼";
+      display: inline-block;
+      margin-right: 8px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    & .content {
+      height: auto;
+      opacity: 1;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--component-border);
+    }
+  }
+}

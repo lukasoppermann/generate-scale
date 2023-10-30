@@ -1,0 +1,29 @@
+.Swatch {
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  height: 50px;
+  flex-direction: row;
+  justify-items: start;
+  align-items: center;
+  width: calc(100% - 20px);
+  padding: 0 10px;
+  background-color: var(--swatch-color);
+  color: var(--text-color);
+  & .hsl {
+    margin-left: auto;
+    display: flex;
+    gap: 4px;
+  }
+  & .contrastRatio {
+    grid-column: 5;
+    font-weight: bold;
+    color: color-mix(in srgb, var(--text-color), transparent 25%);
+    margin-left: auto;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently */
+  }
+}

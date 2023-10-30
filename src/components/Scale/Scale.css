@@ -1,0 +1,86 @@
+.scale {
+  min-width: 450px;
+  overflow: hidden;
+  /* background: linear-gradient(var(--component-bg), var(--scale-bg) 30%); */
+  background-color: var(--scale-bg);
+  padding: 8px 0;
+  transition: .3s ease-in-out;
+  &:hover {
+    border-radius: 6px;
+    padding: 8px;
+    padding-top: 16px;
+    z-index: 100;
+    margin-top: -8px;
+    margin-left: -8px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 2px, rgba(0, 0, 0, 0.2) 0px 8px 24px;
+    .mode-dark & {
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px, rgba(0, 0, 0, 0.6) 0px 2px 18px;
+    }
+    & + .scale {
+      margin-left: -8px;
+    }
+  }
+  & .controls {
+    position: relative;
+    z-index: 10;
+    margin-top: -12px;
+    border-radius: 8px 8px 0 0;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding: 8px;
+    width: calc(100% - 16px);
+  }
+  & .colors {
+    border-radius: 0px;
+    overflow: hidden;
+  }
+  &:first-child .colors {
+    border-radius: 8px 0 0 8px;
+  }
+  &:last-child .colors {
+    border-radius: 0 8px 8px 0;
+  }
+  & .title {
+    --padding: 16px;
+    position: relative;
+    border-radius: 4px 4px 0 0;
+    padding: var(--padding);
+    width: calc(100% - 2 * var(--padding));
+    margin-top: -8px;
+    & h3 {
+      font-size: 14px;
+      color: var(--text-color-secondary);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    & .scale-name {
+      font-size: 24px;
+      margin: 4px 0;
+      margin-bottom: 0;
+      border-color: transparent;
+      border-width: 2px;
+      padding: 0px 0;
+      transition: .2s ease-in-out;
+      margin-left: -2px;
+    }
+    & .scale-name:focus {
+      border-color: var(--color-active);
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-left: 0;
+    }
+    & .button-remove-scale {
+      opacity: 0;
+      position: absolute;
+      top: var(--padding);
+      right: var(--padding);
+      transition: .2s ease-in-out;
+    }
+    &:hover .button-remove-scale {
+      opacity: 1;
+    }
+  }
+}

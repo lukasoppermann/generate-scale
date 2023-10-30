@@ -1,0 +1,30 @@
+  & .ContrastRatios {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    & .step {
+      display: flex;
+      flex-direction: row;
+      border-radius: 4px;
+      padding: 4px;
+      & .Input {
+        width: 120px;
+      }
+      & .remove-button {
+        opacity: 0;
+        margin-left: auto;
+        transition: .2s ease-in-out;
+      }
+      &:hover {
+        background-color: var(--component-bg-hover);
+      }
+      &:hover .remove-button {
+        opacity: 1;
+      }
+    }
+    & .add-button {
+      margin-left: 4px;
+      width: 120px
+    }
+  }

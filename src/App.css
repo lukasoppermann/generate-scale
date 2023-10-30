@@ -1,38 +1,57 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: var(--page-bg, #fff);
+  height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--text-color) !important;
+  --border-radius-sm: 4px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 8px;
 }
-
-.App-link {
-  color: #61dafb;
+.App.mode-light {
+  --page-bg: rgb(250,252,255);
+  --component-bg: #fff;
+  --component-bg-muted: rgb(245,246,247);
+  --component-bg-hover: rgb(246,248,250);
+  --component-bg-active: rgb(240,242,244);
+  --component-border: rgb(209,213,219);
+  --text-color: #000;
+  --text-color-secondary: rgb(100,102,105);
+  --border-dark-mode-only: transparent;
+  --border-muted: rgb(220,222,225);
+  --color-active: rgb(20,110,230);
+  --danger-text: rgb(180,18,18);
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App.mode-dark {
+  --page-bg: rgb(30,32,35);
+  --component-bg: rgb(10,12,15);
+  --component-bg-hover: rgb(40,42,45);
+  --component-bg-active: rgb(46,48,50);
+  --component-border: rgb(60,62,65);
+  --text-color: rgb(200,202,205);
+  --text-color-secondary: rgb(100,102,105);
+  --border-dark-mode-only: rgb(60,62,65);
+  --border-muted: rgb(50,52,55);
+  --color-active: rgb(20,110,230);
+  --danger-text: rgb(240,108,108);
+}
+.scales-container {
+  display: block;
+  align-self: flex-start;
+  width: calc(100%);
+  height: max-content;
+  overflow-x: scroll;
+}
+.scales {
+  margin: 0;
+  padding: 24px;
+  background: var(--scale-bg);
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0;
 }

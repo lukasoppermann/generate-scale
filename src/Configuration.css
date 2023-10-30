@@ -1,0 +1,25 @@
+.Configuration {
+  width: 400px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  & h4 {
+    &:first-child {
+      margin-top: 0;
+    }
+    width: 100%;
+  }
+  & .bg-colors {
+    display: flex;
+    gap: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--component-border);
+  }
+  & .footer {
+    display: flex;
+    flex-direction: row;
+    margin-top: auto;
+    gap: 8px
+  }
+}

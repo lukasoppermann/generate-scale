@@ -1,0 +1,13 @@
+.Fieldset {
+  border: 1px solid var(--border-muted);
+  border-radius: 4px;
+  padding: 12px;
+  padding-top: 8px;
+  display: flex;
+  gap: 8px;
+  & legend {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-color-secondary);
+  }
+}

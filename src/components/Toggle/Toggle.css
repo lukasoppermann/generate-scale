@@ -1,0 +1,71 @@
+.Toggle {
+  --height: 20px;
+  --width: calc(var(--height) * 2 + var(--innerPadding));
+  --innerPadding: 2px;
+  height: var(--height);
+  width: var(--width);
+  position: relative;
+  display: block;
+  border: 1px solid var(--border-dark-mode-only);
+  border-radius: 100px;
+  & input[type="checkbox"] {
+    position: absolute;
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  & .toggle__fill {
+    cursor: pointer;
+    width: var(--width);
+    height: var(--height);
+    background: #dedede;
+    display: block;
+    position: relative;
+    transition: 0.2s;
+    border-radius: 100px;
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 200;
+      top: var(--innerPadding);
+      left: var(--innerPadding);
+      width: calc(var(--height) - var(--innerPadding) * 2);
+      height: calc(var(--height) - var(--innerPadding) * 2);
+      background: var(--component-bg);
+      border-radius: 9999px;
+      transition: 0.2s;
+    }
+  }
+  & input:checked + .toggle__fill {
+    background: var(--color-active);
+    &:after {
+      left: calc(100% - var(--innerPadding));
+      transform: translateX(-100%);
+    }
+  }
+  & .toggle__fill:active:after {
+    width: calc(var(--height) * 1.5);
+  }
+  & .switch__icon {
+    color: var(--text-color);
+    fill: currentColor;
+    font-size: calc(var(--height) - var(--innerPadding) * 3);
+    line-height: 100%;
+    width: calc(var(--height) - var(--innerPadding) * 3);
+    height: calc(var(--height) - var(--innerPadding) * 3);
+    position: absolute;
+    z-index: 100;
+    top: calc(var(--innerPadding) * 1.5);
+    left: calc(var(--innerPadding) * 2);
+    pointer-events: none;
+    &:is(.unchecked) {
+      left: auto;
+      right: calc(var(--innerPadding) * 2);
+    }
+  }
+}
+.Toggle-Container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

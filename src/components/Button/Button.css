@@ -1,0 +1,39 @@
+.Button {
+  background-color: var(--component-bg);
+  border: 1px solid var(--component-border);
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration-thickness: auto;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  & svg {
+    float: left;
+    fill: currentColor;
+  }
+  &:hover {
+    background-color: var(--component-bg-hover);
+  }
+  &:active {
+    background-color: var(--component-bg-active);
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.05);
+  }
+  &:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  &:focus-visible {
+    box-shadow: none;
+  }
+  &:is(.Button--danger) {
+    color: var(--danger-text);
+  }
+}

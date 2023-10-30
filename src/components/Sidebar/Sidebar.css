@@ -1,0 +1,53 @@
+.Sidebar {
+  z-index: 999;
+  padding: 16px;
+  height: calc(100% - 32px);
+  min-width: 200px;
+  background-color: var(--component-bg);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  transition-property: transform, box-shadow;
+  transition-timing-function: ease-in-out;
+  transition-duration: 0.3s;
+  border: 0px solid var(--component-border);
+  &:is(.position-left) {
+    transform: translateX(-110%);
+    left: 0;
+    right: auto;
+    border-radius: 0 6px 6px 0;
+    border-right-width: 1px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08),
+      6px 0 48px rgba(0, 0, 0, 0.08);
+  }
+  &:is(.position-right) {
+    transform: translateX(110%);
+    right: 0;
+    left: auto;
+    border-radius: 6px 0 0 6px;
+    border-left-width: 1px;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.08),
+      -6px 0 48px rgba(0, 0, 0, 0.08);
+  }
+  &:is(.is-open) {
+    transform: translateX(0%);
+  }
+  & > .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--component-border);
+    & > h4 {
+      margin: 0 
+    }
+    & > .close {
+      margin-left: auto;
+    }
+  }
+  & > .content {
+    flex-grow: 1;
+  }
+}
