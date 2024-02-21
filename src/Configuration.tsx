@@ -7,12 +7,12 @@ import {
   NamedColorSwatch,
   Toggle,
 } from "./components";
-import { useConfigContext, useThemeContext } from "./contexts";
+import { useConfigContext } from "./contexts";
 
 const Configuration: FC = () => {
   const { config, setConfig, resetConfig } = useConfigContext();
   // const { resetScales } = useScaleContext();
-  const { theme } = useThemeContext();
+  // const { theme } = useThemeContext();
 
   // const addStep = (mode: "light" | "dark") => {
   //   return (event: React.MouseEvent<HTMLButtonElement>) => {

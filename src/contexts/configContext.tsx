@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { getLocalStorage, setLocalStorage } from "../utils/localStorage";
 
 type ConfigContextProviderProps = {
@@ -47,7 +47,7 @@ export default function ConfigContextProvider({
   children,
 }: ConfigContextProviderProps) {
   const [config, setConfigObject] = useState<Config>(
-    () => getLocalStorage<Config>("CONFIG") as Config
+    () => getLocalStorage<Config>("CONFIG", defaultConfig) as Config
   );
 
   const setConfig = (itemString: itemPath, value: unknown): void => {

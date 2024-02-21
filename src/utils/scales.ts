@@ -38,7 +38,7 @@ export const getScales = (theme?: Mode): Scale[] => {
     "SCALES",
     defaultScales
   ) as Scale[];
-  // return sctore scales if they exist, otherwise return default scales
+  // return stored scales if they exist, otherwise return default scales
   return storedScales.filter((scale: Scale) => theme ? scale.theme === theme : true);
 }
 

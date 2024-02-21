@@ -2,6 +2,7 @@
   "name": "generate-scales",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://lukasoppermann.github.io/generate-scales",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "@testing-library/jest-dom": "^5.17.0",
@@ -24,6 +25,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -46,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "colorjs.io": "^0.4.5"
+    "colorjs.io": "^0.4.5",
+    "gh-pages": "^6.1.1"
   }
 }

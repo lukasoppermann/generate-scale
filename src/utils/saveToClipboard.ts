@@ -1,5 +1,3 @@
-import { paste } from '@testing-library/user-event/dist/paste';
-
 const saveToClipboard = (text: string) => {
   navigator.clipboard
     .writeText(text)

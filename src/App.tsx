@@ -70,7 +70,7 @@ function App() {
       className={`App mode-${theme}`}
       style={
         {
-          "--page-bg": config[theme as Mode].bg,
+          "--page-bg": config?.[theme as Mode]?.bg,
         } as React.CSSProperties
       }
     >
