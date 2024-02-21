@@ -44,14 +44,14 @@ export const getScales = (theme?: Mode): Scale[] => {
 
 export const storeScale = (newScale: Scale): void => {
   const scales = getScales();
-  const thisScale = scales.filter((scale) => scale.id === newScale.id);
+  const thisIndex = scales.findIndex((scale) => scale.id === newScale.id);
+  // update scales
+  scales[thisIndex] = {
+    ...scales[thisIndex],
+    ...newScale
+  }
   // if exists, remove, otherwise ignore ALWAYS add newScle
-  const newScales = [
-    ...scales.filter((scale) => scale.id !== newScale.id), {
-      ...thisScale,
-      ...newScale
-    }];
-  setLocalStorage("SCALES", newScales);
+  setLocalStorage("SCALES", scales);
 }
 
 export const deleteScale = (scaleId: string): void => {

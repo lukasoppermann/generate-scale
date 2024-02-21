@@ -18,6 +18,8 @@ interface Props extends ScaleProps {
   id: string;
   onChange: (id: string, key: keyof ScaleProps, value: string | number) => void;
   onRemove: (id: string) => void;
+  onSelectStep: (step?: number) => void;
+  selectedStep: number | undefined;
 }
 
 const scaleBgMuted = (theme: "light" | "dark") => {
@@ -44,6 +46,8 @@ const Scale: FC<Props> = ({
   saturationChange: initialsaturationChange,
   onChange,
   onRemove,
+  onSelectStep,
+  selectedStep,
 }) => {
   const [scale, updateScale] = useReducer(
     (prev: ScaleProps, next: Partial<ScaleProps>) => {
@@ -64,7 +68,6 @@ const Scale: FC<Props> = ({
       saturationChange: initialsaturationChange,
     }
   );
-  // const [name, setName] = React.useState(initialName);
   const [hue, setHue] = React.useState(initialHue);
   const [hueChange, setHueChange] = React.useState(initialHueChange);
   const [saturation, setSaturation] = React.useState(initialSaturation);
@@ -167,7 +170,12 @@ const Scale: FC<Props> = ({
       </div>
       <div className="colors">
         {colors.map((color: any) => (
-          <Swatch color={color} key={color.contrastRatio} />
+          <Swatch
+            color={color}
+            key={color.contrastRatio}
+            onSelectStep={onSelectStep}
+            selectedStep={selectedStep}
+          />
         ))}
       </div>
     </div>

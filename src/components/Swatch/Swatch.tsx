@@ -7,6 +7,8 @@ import Token from "../Token/Token";
 
 interface Props {
   color: ScaleStep;
+  onSelectStep: (step?: number) => void;
+  selectedStep: number | undefined;
 }
 
 const textColor = (hex: string): string => {
@@ -16,11 +18,20 @@ const textColor = (hex: string): string => {
     : `#fff`;
 };
 
-const Swatch: FC<Props> = ({ color }) => {
+const Swatch: FC<Props> = ({ color, onSelectStep, selectedStep }) => {
   const { config } = useConfigContext();
+  console.log(color);
+
   return (
     <div
-      className="Swatch"
+      onClick={() => {
+        if (selectedStep === undefined || selectedStep !== color.index) {
+          onSelectStep(color.index);
+        } else {
+          onSelectStep(undefined);
+        }
+      }}
+      className={`Swatch ${selectedStep === color.index ? "isSelected" : ""}`}
       style={
         {
           "--swatch-color": color.hex,
@@ -36,9 +47,20 @@ const Swatch: FC<Props> = ({ color }) => {
           <Token label="L">{`${color.l}%`}</Token>
         </>
       )}
-      <span className="contrastRatio">
-        {Math.floor(color.actualContrastRatio * 10) / 10}
-      </span>
+      <div className="contrasts">
+        {selectedStep !== undefined && (
+          <span
+            className="stepContrastRatio"
+            title={`Contrast against step ${selectedStep} of this scale.`}
+          >
+            {Math.floor(color.stepContrasts[selectedStep].contrastRatio * 10) /
+              10}
+          </span>
+        )}
+        <span className="contrastRatio">
+          {Math.floor(color.actualContrastRatio * 10) / 10}
+        </span>
+      </div>
     </div>
   );
 };

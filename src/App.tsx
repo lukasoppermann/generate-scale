@@ -11,9 +11,9 @@ const huename = require("hue-name");
 
 function App() {
   const { theme } = useThemeContext();
-  // const { scales, setScale, removeScale } = useScaleContext();
   const { config } = useConfigContext();
   const [isOpen, setOpen] = useState(false);
+  const [selectedStep, setSelectedStep] = useState<number | undefined>();
   const [scales, setScales] = useState<ScaleType[]>([]);
 
   useEffect(() => {
@@ -92,6 +92,10 @@ function App() {
                 key={`scale-${theme}-${scale.id}`}
                 onChange={updateScale}
                 onRemove={removeScale}
+                onSelectStep={(step?: number) => {
+                  setSelectedStep(step);
+                }}
+                selectedStep={selectedStep}
                 {...scale}
               />
             ))}

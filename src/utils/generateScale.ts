@@ -1,5 +1,5 @@
 import { Mode } from '../contexts/themeContext'
-import { getColorWithContrast, hslToHex } from './colorFunctionsHSL'
+import { getColorWithContrast, hslToHex, getContrast } from './colorFunctionsHSL'
 
 export type ScaleConfig = {
   hueChange: number
@@ -17,6 +17,13 @@ export type ScaleStep = {
   s: number,
   l: number,
   hex: string
+  stepContrasts: [
+    {
+      step: number,
+      hex: string
+      contrastRatio: number,
+    }
+  ]
 }
 
 
@@ -47,7 +54,7 @@ export const generateScale = (startHue: number, startSaturation: number, scaleCo
 
   let lastLightness = theme === "dark" ? 0 : 100;
   // build scale
-  const scale = steps.map((contrastRatio, index) => {
+  let scale = steps.map((contrastRatio, index) => {
     const hue = calcHue(Number(startHue), Number(index), Number(hueChange));
     const saturation = calcSaturation(Number(startSaturation), Number(index), Number(saturationChange));
     const { l: lightness, actualContrastRatio } = getColorWithContrast(
@@ -69,5 +76,18 @@ export const generateScale = (startHue: number, startSaturation: number, scaleCo
     };
   });
 
-  return scale
+  // add additional contrast checks
+  scale = scale.map((step) => {
+    const stepContrasts = [...Array(scale.length)].map((_, i) => ({
+      step: i,
+      hex: scale[i].hex,
+      contrastRatio: getContrast(step.hex, scale[i].hex),
+    }));
+    return {
+      ...step,
+      stepContrasts,
+    } as ScaleStep;
+  });
+
+  return scale as ScaleStep[];
 }
