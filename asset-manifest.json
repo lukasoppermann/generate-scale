@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/generate-scales/static/css/main.0654c5d7.css",
+    "main.js": "/generate-scales/static/js/main.a9b02936.js",
+    "index.html": "/generate-scales/index.html",
+    "main.0654c5d7.css.map": "/generate-scales/static/css/main.0654c5d7.css.map",
+    "main.a9b02936.js.map": "/generate-scales/static/js/main.a9b02936.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0654c5d7.css",
+    "static/js/main.a9b02936.js"
+  ]
+}
