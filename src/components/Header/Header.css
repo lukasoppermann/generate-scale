@@ -13,10 +13,10 @@
   &:is(.mode-dark) {
     --header-bg: rgb(5,7,10);
   }
-  & .right-side {
-    margin-left: auto;
+}
+  .Header .right-side {
     display: flex;
+    margin-left: auto;
     flex-direction: row;
     gap: 8px;
   }
-}
