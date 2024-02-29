@@ -20,7 +20,6 @@ const textColor = (hex: string): string => {
 
 const Swatch: FC<Props> = ({ color, onSelectStep, selectedStep }) => {
   const { config } = useConfigContext();
-  console.log(color);
 
   return (
     <div

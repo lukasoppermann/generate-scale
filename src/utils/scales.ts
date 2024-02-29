@@ -45,10 +45,15 @@ export const getScales = (theme?: Mode): Scale[] => {
 export const storeScale = (newScale: Scale): void => {
   const scales = getScales();
   const thisIndex = scales.findIndex((scale) => scale.id === newScale.id);
-  // update scales
-  scales[thisIndex] = {
-    ...scales[thisIndex],
-    ...newScale
+  // update scales if exists, otherwise add newScale
+  if (thisIndex > -1) {
+    scales[thisIndex] = {
+      ...scales[thisIndex],
+      ...newScale
+    }
+  } else {
+    // add new scale to array
+    scales.push(newScale);
   }
   // if exists, remove, otherwise ignore ALWAYS add newScle
   setLocalStorage("SCALES", scales);
