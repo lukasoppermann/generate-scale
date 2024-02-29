@@ -11,7 +11,6 @@ type ExportFormat = "json" | "primitives" | "figma"
 type GeneratedScale = {
   name: string;
   id: string;
-  config: ScaleConfig;
   steps: ScaleStep[];
 };
 
@@ -28,24 +27,24 @@ const buildScale = (scales: Scale[], config: Config): Record<Mode, GeneratedScal
         bg: config[themeName as Mode].bg,
         steps: config[themeName as Mode].steps
       }
-
       return {
-        name,
-        id,
-        config: scaleConfig,
+        ...scale,
         steps: generateScale(scale.hue, scale.saturation, scaleConfig)
       }
     })
   }
-
-  return result;
+  return result
 }
 
-type Formatter = (scales: Record<Mode, GeneratedScale[]>) => string
+type Formatter = (scales: Record<Mode, GeneratedScale[]>, config: Config) => string
 
-const formatToJson: Formatter = (scales) => {
-  return JSON.stringify(scales, null, 2)
+const formatToJson: Formatter = (scales, config) => {
+  return JSON.stringify({
+    config,
+    scales
+  }, null, 2)
 }
+
 const formatToPrimitives: Formatter = (scales) => {
   let result = {} as Record<Mode, unknown>;
   for (const themeName in scales) {
@@ -80,14 +79,14 @@ const formatToFigma: Formatter = (scales) => {
   }).join("")
 }
 
-const formatScales = (format: ExportFormat, scales: Record<Mode, GeneratedScale[]>) => {
+const formatScales = (format: ExportFormat, scales: Record<Mode, GeneratedScale[]>, config: Config) => {
   const formatter: Record<ExportFormat, Formatter> = {
     json: formatToJson,
     primitives: formatToPrimitives,
     figma: formatToFigma
   }
   // return result
-  return formatter[format](scales)
+  return formatter[format](scales, config)
 }
 
 export const exportScales = (format: ExportFormat) => {
@@ -95,10 +94,8 @@ export const exportScales = (format: ExportFormat) => {
   const scales = getLocalStorage<Scale[]>("SCALES")!
   // build scales
   const generatedScales = buildScale(scales, config);
-  console.log(generatedScales)
   // format
-  const result = formatScales(format, generatedScales);
-  console.log(result)
+  const result = formatScales(format, generatedScales, config);
   // save to clipboard
   clipboard.copy(result);
 }
@@ -109,7 +106,7 @@ export const exportToFile = async (format: ExportFormat) => {
   // build scales
   const generatedScales = buildScale(scales, config);
   // format
-  const result = formatScales(format, generatedScales);
+  const result = formatScales(format, generatedScales, config);
   // save file
   await save(result, `colorScales-${new Date().toLocaleDateString("en-US", {
     year: "numeric",
