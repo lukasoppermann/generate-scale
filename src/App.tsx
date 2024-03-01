@@ -58,6 +58,7 @@ function App() {
     }
     try {
       setConfigObject(parsedData.config);
+      setLocalStorage("CONFIG", parsedData.config);
       try {
         validateScales(parsedData.scales);
       } catch (e) {
