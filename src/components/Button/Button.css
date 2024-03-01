@@ -36,4 +36,9 @@
   &:is(.Button--danger) {
     color: var(--danger-text);
   }
+  &:is(.Button--primary) {
+    color: var(--text-color-on-active);
+    background-color: var(--color-active);
+    border-color: var(--color-active);
+  }
 }

@@ -1,0 +1,45 @@
+.importDialog {
+  border-radius: var(--border-radius-md);
+  background-color: var(--component-bg);
+  border: 1px solid var(--component-border);
+  width: 600px;
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+  }
+  h1 {
+    color: var(--text-color);
+    margin-top: 0;
+    font-size: 24px;
+  }
+  form {
+    textarea {
+      background-color: var(--component-bg-muted);
+      border: 1px solid var(--component-border);
+      border-radius: var(--border-radius-sm);
+      color: var(--text-color);
+      padding: 8px;
+      width: calc(100% - 16px);
+      margin-bottom: 8px;
+      height: 400px;
+      resize: none;
+      &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 1px var(--color-active);
+        border: 1px solid var(--color-active);
+      }
+      &.invalid {
+        box-shadow: 0 0 0 1px var(--color-danger);
+        border: 1px solid var(--color-danger);
+      }
+    }
+    .errorMessage {
+      color: var(--danger-text);
+      margin-top: 0;
+    }
+    .Button {
+      float:right;
+      margin-left: 8px;
+    }
+  }
+}
