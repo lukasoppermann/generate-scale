@@ -4,9 +4,14 @@ import { Button, Header, Scale, Sidebar } from "./components";
 import { useThemeContext } from "./contexts";
 import Configuration from "./Configuration";
 import { useConfigContext } from "./contexts/configContext";
-import { Scale as ScaleType } from "./contexts/scaleContext";
 import { Mode } from "./contexts/themeContext";
-import { deleteScale, getScales, storeScale } from "./utils/scales";
+import {
+  deleteScale,
+  getScales,
+  resetScales,
+  storeScale,
+  Scale as ScaleType,
+} from "./utils/scales";
 import ImportDialog from "./components/ImportDialog/ImportDialog";
 import { setLocalStorage } from "./utils/localStorage";
 const huename = require("hue-name");
@@ -122,6 +127,11 @@ function App() {
     event.currentTarget.scrollLeft += event.deltaY;
   };
 
+  const resetScalesDefault = () => {
+    const defaultScales = resetScales();
+    setScales(defaultScales);
+  };
+
   return (
     <div
       className={`App mode-${theme}`}
@@ -141,7 +151,7 @@ function App() {
         position="right"
         title="Configuration"
       >
-        <Configuration />
+        <Configuration resetScales={resetScalesDefault} />
       </Sidebar>
       <div className="scales-container" onWheel={scrollHorizontally}>
         <div className="scales">
