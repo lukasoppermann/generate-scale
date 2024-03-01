@@ -1,4 +1,4 @@
-import { Config } from '../contexts/configContext';
+import { Config, defaultConfig } from '../contexts/configContext';
 import { Mode } from '../contexts/themeContext';
 import { ScaleConfig, ScaleStep, generateScale } from './generateScale';
 import { getLocalStorage } from './localStorage';
@@ -101,8 +101,8 @@ export const exportScales = (format: ExportFormat) => {
 }
 
 export const exportToFile = async (format: ExportFormat) => {
-  const config = getLocalStorage<Config>("CONFIG")!
-  const scales = getLocalStorage<Scale[]>("SCALES")!
+  const config = getLocalStorage<Config>("CONFIG", defaultConfig)!;
+  const scales = getLocalStorage<Scale[]>("SCALES", [])!
   // build scales
   const generatedScales = buildScale(scales, config);
   // format

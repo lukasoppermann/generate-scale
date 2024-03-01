@@ -30,7 +30,7 @@ type ConfigContextType = {
   resetConfig: () => void;
 };
 
-const defaultConfig: Config = {
+export const defaultConfig: Config = {
   showHSL: false,
   light: {
     bg: "#ffffff",
