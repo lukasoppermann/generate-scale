@@ -33,7 +33,8 @@
   &:is(.is-open) {
     transform: translateX(0%);
   }
-  & > .header {
+}
+  .Sidebar > .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,7 +48,6 @@
       margin-left: auto;
     }
   }
-  & > .content {
+  .Sidebar > .content {
     flex-grow: 1;
   }
-}

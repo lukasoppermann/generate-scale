@@ -9,7 +9,12 @@ import {
 } from "./components";
 import { useConfigContext } from "./contexts";
 
-const Configuration: FC = () => {
+
+interface Props {
+  resetScales: () => void;
+}
+
+const Configuration: FC<Props> = ({ resetScales }) => {
   const { config, setConfig, resetConfig } = useConfigContext();
   // const { resetScales } = useScaleContext();
   // const { theme } = useThemeContext();
@@ -62,12 +67,8 @@ const Configuration: FC = () => {
         />
       </Disclosure>
       <div className="footer">
-        <Button
-          variant="danger"
-          className="resetScales"
-          // onClick={() => resetScales(theme)}
-        >
-          NOT WORKING Reset Scales
+        <Button variant="danger" className="resetScales" onClick={resetScales}>
+          Reset scales
         </Button>
         <Button
           variant="danger"

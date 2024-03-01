@@ -67,3 +67,8 @@ export const deleteScale = (scaleId: string): void => {
   const newScales = storedScales.filter((scale) => scale.id !== scaleId);
   setLocalStorage("SCALES", newScales);
 }
+
+export const resetScales = (): Scale[] => {
+  setLocalStorage("SCALES", defaultScales);
+  return defaultScales;
+}

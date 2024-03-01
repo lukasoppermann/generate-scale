@@ -38,10 +38,12 @@
     overflow: hidden;
   }
   &:first-child .colors {
-    border-radius: 8px 0 0 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
   }
   &:last-child .colors {
-    border-radius: 0 8px 8px 0;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
   }
   & .title {
     --padding: 16px;

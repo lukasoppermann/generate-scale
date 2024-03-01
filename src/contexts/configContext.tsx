@@ -131,7 +131,7 @@ export default function ConfigContextProvider({
   };
 
   const resetConfig = () => {
-    localStorage.removeItem("config");
+    setLocalStorage("CONFIG", defaultConfig);
     setConfigObject(defaultConfig);
   };
 
