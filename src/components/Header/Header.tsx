@@ -7,15 +7,17 @@ import { exportScales, exportToFile } from "../../utils/exportScales";
 
 interface Props {
   toggleSidebar: () => void;
+  openImportDialog: () => void;
 }
 
-const Header: FC<Props> = ({ toggleSidebar }) => {
+const Header: FC<Props> = ({ toggleSidebar, openImportDialog }) => {
   const { theme } = useThemeContext();
 
   return (
     <header className={`Header mode-${theme}`}>
       <ThemeToggle />
       <div className="right-side">
+        <Button onClick={() => openImportDialog()}>Import</Button>
         <Button onClick={() => exportToFile("json")}>Export</Button>
         <Button onClick={() => exportScales("primitives")}>
           Export as Primitives

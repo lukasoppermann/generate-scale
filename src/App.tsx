@@ -7,18 +7,75 @@ import { useConfigContext } from "./contexts/configContext";
 import { Scale as ScaleType } from "./contexts/scaleContext";
 import { Mode } from "./contexts/themeContext";
 import { deleteScale, getScales, storeScale } from "./utils/scales";
+import ImportDialog from "./components/ImportDialog/ImportDialog";
+import { setLocalStorage } from "./utils/localStorage";
 const huename = require("hue-name");
 
 function App() {
   const { theme } = useThemeContext();
-  const { config } = useConfigContext();
+  const { config, setConfigObject } = useConfigContext();
   const [isOpen, setOpen] = useState(false);
+  const [isImportDialogOpen, setImportDialogOpen] = useState(false);
   const [selectedStep, setSelectedStep] = useState<number | undefined>();
   const [scales, setScales] = useState<ScaleType[]>([]);
 
   useEffect(() => {
     setScales(getScales());
   }, []);
+
+  const validateScales = (scales: unknown) => {
+    if (
+      !scales ||
+      typeof scales !== "object" ||
+      !("light" in scales) ||
+      !("dark" in scales) ||
+      !Array.isArray(scales.light) ||
+      !Array.isArray(scales.dark)
+    ) {
+      throw new Error("Invalid scales data");
+    }
+    return true;
+  };
+
+  const importScales = (data: string) => {
+    let parsedData = {};
+    try {
+      //@ts-ignore
+      parsedData = JSON.parse(data);
+    } catch (error) {
+      console.error("Invalid JSON data provided", error);
+      return { error: "Invalid JSON data provided" };
+    }
+    if (!("scales" in parsedData) || !("config" in parsedData)) {
+      return {
+        error: 'Invalid JSON object, must have "scales" and "config" property.',
+      };
+    }
+    try {
+      setConfigObject(parsedData.config);
+      try {
+        validateScales(parsedData.scales);
+      } catch (e) {
+        // @ts-ignore
+        return { error: e.message };
+      }
+
+      const importedScales = [
+        // @ts-ignore
+        ...parsedData.scales.light,
+        // @ts-ignore
+        ...parsedData.scales.dark,
+      ] as ScaleType[];
+      setLocalStorage("SCALES", importedScales);
+      setScales(importedScales);
+    } catch (error) {
+      console.error("Invalid JSON data provided", error);
+      return { error: "Invalid JSON data provided" };
+    }
+    return {
+      error: null,
+    };
+  };
 
   const addScale = () => {
     const uuid = Math.random().toString(36).substring(2, 15);
@@ -74,7 +131,10 @@ function App() {
         } as React.CSSProperties
       }
     >
-      <Header toggleSidebar={() => setOpen(!isOpen)} />
+      <Header
+        toggleSidebar={() => setOpen(!isOpen)}
+        openImportDialog={() => setImportDialogOpen(true)}
+      />
       <Sidebar
         isOpen={isOpen}
         toggle={() => setOpen(!isOpen)}
@@ -102,6 +162,11 @@ function App() {
         </div>
       </div>
       <Button onClick={addScale}>Add Scale</Button>
+      <ImportDialog
+        open={isImportDialogOpen}
+        setOpen={setImportDialogOpen}
+        runOnSubmit={importScales}
+      />
     </div>
   );
 }

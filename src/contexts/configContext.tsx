@@ -26,6 +26,7 @@ export type Config = {
 type ConfigContextType = {
   config: Config;
   setConfig: (itemPath: itemPath, value: unknown) => void;
+  setConfigObject: (config: unknown) => void;
   resetConfig: () => void;
 };
 
@@ -46,9 +47,51 @@ export const ConfigContext = createContext<ConfigContextType | null>(null);
 export default function ConfigContextProvider({
   children,
 }: ConfigContextProviderProps) {
-  const [config, setConfigObject] = useState<Config>(
+  const [config, _setConfigObject] = useState<Config>(
     () => getLocalStorage<Config>("CONFIG", defaultConfig) as Config
   );
+  // validate config before setting
+  const setConfigObject = (config: unknown): void => {
+    // is it an object?
+    if (!config || typeof config !== "object") {
+      throw new Error(
+        "Invalid config parameter, setConfigObject expects an object"
+      );
+    }
+    // TODO: replace with zod
+    // does it have the right keys?
+    if (
+      !("showHSL" in config) ||
+      !("light" in config) ||
+      !("dark" in config) ||
+      !config.light ||
+      !config.dark ||
+      typeof config.light !== "object" ||
+      typeof config.dark !== "object" ||
+      !("bg" in config.light) ||
+      !("steps" in config.light) ||
+      !("bg" in config.dark) ||
+      !("steps" in config.dark)
+    ) {
+      throw new Error(
+        "Invalid config parameter, setConfigObject expects an object with the keys showHSL, light.bg, light.steps, dark.bg, dark.steps"
+      );
+    }
+    // are the values the right type?
+    if (
+      typeof config.showHSL !== "boolean" ||
+      typeof config.light.bg !== "string" ||
+      !Array.isArray(config.light.steps) ||
+      typeof config.dark.bg !== "string" ||
+      !Array.isArray(config.dark.steps)
+    ) {
+      throw new Error(
+        "Invalid config parameter, setConfigObject expects an object with the keys showHSL as boolean, light.bg as string, light.steps as array, dark.bg as string, dark.steps as array"
+      );
+    }
+
+    _setConfigObject(config as Config);
+  };
 
   const setConfig = (itemString: itemPath, value: unknown): void => {
     const [item, mode] = itemString.split(".").reverse();
@@ -97,6 +140,7 @@ export default function ConfigContextProvider({
       value={{
         config,
         setConfig,
+        setConfigObject,
         resetConfig,
       }}
     >

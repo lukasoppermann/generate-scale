@@ -19,10 +19,12 @@
   --component-border: rgb(209,213,219);
   --text-color: #000;
   --text-color-secondary: rgb(100,102,105);
+  --text-color-on-active: #fff;
+  --danger-text: rgb(180,18,18);
   --border-dark-mode-only: transparent;
   --border-muted: rgb(220,222,225);
   --color-active: rgb(20,110,230);
-  --danger-text: rgb(180,18,18);
+  --color-danger: rgb(180,18,18);
 }
 .App.mode-dark {
   --page-bg: rgb(30,32,35);
@@ -32,10 +34,12 @@
   --component-border: rgb(60,62,65);
   --text-color: rgb(200,202,205);
   --text-color-secondary: rgb(100,102,105);
+  --text-color-on-active: #fff;
+  --danger-text: rgb(240,108,108);
   --border-dark-mode-only: rgb(60,62,65);
   --border-muted: rgb(50,52,55);
   --color-active: rgb(20,110,230);
-  --danger-text: rgb(240,108,108);
+  --color-danger: rgb(240,108,108);
 }
 .scales-container {
   display: block;
