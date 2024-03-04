@@ -1,5 +1,5 @@
 import "./NamedColorSwatch.css";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 
 interface Props {
   name: string;
@@ -13,6 +13,10 @@ const NamedColorSwatch: FC<Props> = ({
   onChange,
 }) => {
   const [color, setColor] = React.useState(currentColor);
+
+  useEffect(() => {
+    setColor(currentColor);
+  }, [currentColor]);
 
   const changeColor = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event);
