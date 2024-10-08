@@ -7,8 +7,10 @@ export type Scale = {
   name: string;
   hue: number;
   hueChange: number;
+  hueFromStep: number;
   saturation: number;
   saturationChange: number;
+  saturationFromStep: number;
 };
 
 const defaultScales: Scale[] =
@@ -19,8 +21,10 @@ const defaultScales: Scale[] =
       theme: "light",
       hue: 332,
       hueChange: -1,
+      hueFromStep: 1,
       saturation: 100,
       saturationChange: -4,
+      saturationFromStep: 1,
     },
     {
       id: "default-dark",
@@ -28,8 +32,10 @@ const defaultScales: Scale[] =
       theme: "dark",
       hue: 332,
       hueChange: -1,
+      hueFromStep: 1,
       saturation: 100,
       saturationChange: -4,
+      saturationFromStep: 1,
     }
   ]
 
