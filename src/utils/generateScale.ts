@@ -31,10 +31,13 @@ export type ScaleStep = {
 
 const calcHue = (startHue: number, index: number, hueChange: number, hueFromStep: number) => {
   // only change hue if we are at the hueFromChange step
-  if (index+1 < hueFromStep) {
+  if (index + 1 < hueFromStep) {
     return startHue
   }
-  const newHue = Number(startHue) + Number(index) * Number(hueChange)
+  console.log("hueFromStep", Number(hueFromStep))
+  const changeMultiplier = index - (hueFromStep - 1)
+
+  const newHue = Number(startHue) + Number(changeMultiplier) * Number(hueChange)
   if (newHue > 360) {
     return newHue - 360
   }
@@ -45,11 +48,14 @@ const calcHue = (startHue: number, index: number, hueChange: number, hueFromStep
 }
 
 const calcSaturation = (startSaturation: number, index: number, saturationChange: number, saturationFromStep: number) => {
-    // only change saturation if we are at the hueFromChange step
-    if (index+1 < saturationFromStep) {
-      return startSaturation
-    }
-  const newSaturation = Number(startSaturation) + Number(index) * Number(saturationChange)
+  // only change saturation if we are at the hueFromChange step
+  if (index+1 < saturationFromStep) {
+    return startSaturation
+  }
+  console.log("saturationFromStep", Number(saturationFromStep))
+  const changeMultiplier = index - (saturationFromStep - 1)
+
+  const newSaturation = Number(startSaturation) + Number(changeMultiplier) * Number(saturationChange)
   if (newSaturation > 100) {
     return 100
   }
@@ -60,7 +66,11 @@ const calcSaturation = (startSaturation: number, index: number, saturationChange
 }
 
 export const generateScale = (startHue: number, startSaturation: number, scaleConfig: ScaleConfig): ScaleStep[] => {
-  const { hueChange, hueFromStep, saturationChange, saturationFromStep, theme, bg, steps } = scaleConfig
+  const { hueChange, saturationChange, theme, bg, steps } = scaleConfig
+  let {hueFromStep, saturationFromStep} = scaleConfig;
+
+  if(!hueFromStep || hueFromStep === 0) hueFromStep = 1;
+  if(!saturationFromStep || saturationFromStep === 0) saturationFromStep = 1;
 
   let lastLightness = theme === "dark" ? 0 : 100;
   // build scale

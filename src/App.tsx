@@ -51,6 +51,8 @@ function App() {
       console.error("Invalid JSON data provided", error);
       return { error: "Invalid JSON data provided" };
     }
+    
+
     if (!("scales" in parsedData) || !("config" in parsedData)) {
       return {
         error: 'Invalid JSON object, must have "scales" and "config" property.',
