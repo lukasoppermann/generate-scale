@@ -3,7 +3,9 @@ import { getColorWithContrast, hslToHex, getContrast } from './colorFunctionsHSL
 
 export type ScaleConfig = {
   hueChange: number
+  hueFromStep: number
   saturationChange: number
+  saturationFromStep: number;
   theme: Mode
   bg: string,
   steps: number[]
@@ -27,7 +29,11 @@ export type ScaleStep = {
 }
 
 
-const calcHue = (startHue: number, index: number, hueChange: number) => {
+const calcHue = (startHue: number, index: number, hueChange: number, hueFromStep: number) => {
+  // only change hue if we are at the hueFromChange step
+  if (index+1 < hueFromStep) {
+    return startHue
+  }
   const newHue = Number(startHue) + Number(index) * Number(hueChange)
   if (newHue > 360) {
     return newHue - 360
@@ -38,7 +44,11 @@ const calcHue = (startHue: number, index: number, hueChange: number) => {
   return newHue
 }
 
-const calcSaturation = (startSaturation: number, index: number, saturationChange: number) => {
+const calcSaturation = (startSaturation: number, index: number, saturationChange: number, saturationFromStep: number) => {
+    // only change saturation if we are at the hueFromChange step
+    if (index+1 < saturationFromStep) {
+      return startSaturation
+    }
   const newSaturation = Number(startSaturation) + Number(index) * Number(saturationChange)
   if (newSaturation > 100) {
     return 100
@@ -50,13 +60,13 @@ const calcSaturation = (startSaturation: number, index: number, saturationChange
 }
 
 export const generateScale = (startHue: number, startSaturation: number, scaleConfig: ScaleConfig): ScaleStep[] => {
-  const { hueChange, saturationChange, theme, bg, steps } = scaleConfig
+  const { hueChange, hueFromStep, saturationChange, saturationFromStep, theme, bg, steps } = scaleConfig
 
   let lastLightness = theme === "dark" ? 0 : 100;
   // build scale
   let scale = steps.map((contrastRatio, index) => {
-    const hue = calcHue(Number(startHue), Number(index), Number(hueChange));
-    const saturation = calcSaturation(Number(startSaturation), Number(index), Number(saturationChange));
+    const hue = calcHue(Number(startHue), Number(index), Number(hueChange), Number(hueFromStep));
+    const saturation = calcSaturation(Number(startSaturation), Number(index), Number(saturationChange), Number(saturationFromStep));
     const { l: lightness, actualContrastRatio } = getColorWithContrast(
       { h: hue, s: saturation, l: lastLightness },
       bg,

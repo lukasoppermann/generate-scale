@@ -10,8 +10,10 @@ type ScaleProps = {
   name: string;
   hue: number;
   hueChange: number;
+  hueFromStep: number;
   saturation: number;
   saturationChange: number;
+  saturationFromStep: number;
 };
 
 interface Props extends ScaleProps {
@@ -42,8 +44,10 @@ const Scale: FC<Props> = ({
   name: initialName,
   hue: initialHue,
   hueChange: initialHueChange,
+  hueFromStep: initialHueFromStep,
   saturation: initialSaturation,
   saturationChange: initialsaturationChange,
+  saturationFromStep: initialSaturationFromStep,
   onChange,
   onRemove,
   onSelectStep,
@@ -64,15 +68,21 @@ const Scale: FC<Props> = ({
       name: initialName,
       hue: initialHue,
       hueChange: initialHueChange,
+      hueFromStep: initialHueFromStep,
       saturation: initialSaturation,
       saturationChange: initialsaturationChange,
+      saturationFromStep: initialSaturationFromStep,
     }
   );
   const [hue, setHue] = React.useState(initialHue);
   const [hueChange, setHueChange] = React.useState(initialHueChange);
+  const [hueFromStep, setHueFromStep] = React.useState(initialHueFromStep);
   const [saturation, setSaturation] = React.useState(initialSaturation);
   const [saturationChange, setSaturationChange] = React.useState(
     initialsaturationChange
+  );
+  const [saturationFromStep, setSaturationFromStep] = React.useState(
+    initialSaturationFromStep
   );
   const [colors, setColors] = React.useState<ScaleStep[]>([]);
   const { theme } = useThemeContext();
@@ -82,13 +92,15 @@ const Scale: FC<Props> = ({
     setColors(
       generateScale(hue, saturation, {
         hueChange,
+        hueFromStep,
         saturationChange,
+        saturationFromStep,
         theme,
         bg: config[theme].bg,
         steps: config[theme].steps,
       })
     );
-  }, [config, hue, hueChange, saturation, saturationChange, theme]);
+  }, [config, hue, hueChange, hueFromStep, saturation, saturationChange, saturationFromStep, theme]);
 
   return (
     <div
@@ -142,6 +154,17 @@ const Scale: FC<Props> = ({
             min="-20"
             max="20"
           />
+          <Input
+            label="From step"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange(id, "hueFromStep", Number(event.target.value));
+              setHueFromStep(Number(event.target.value));
+            }}
+            type="number"
+            value={hueFromStep}
+            min="1"
+            max={config[theme].steps.length}
+          />
         </Fieldset>
         <Fieldset label="Saturation">
           <Input
@@ -165,6 +188,17 @@ const Scale: FC<Props> = ({
             value={saturationChange}
             min="-20"
             max="20"
+          />
+          <Input
+            label="From step"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              onChange(id, "saturationFromStep", Number(event.target.value));
+              setSaturationFromStep(Number(event.target.value));
+            }}
+            type="number"
+            value={saturationFromStep}
+            min="1"
+            max={config[theme].steps.length}
           />
         </Fieldset>
       </div>

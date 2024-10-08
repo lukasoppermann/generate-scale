@@ -92,8 +92,10 @@ function App() {
       theme: theme,
       hue: newHue,
       hueChange: 0,
+      hueFromStep: 1,
       saturation: 100,
       saturationChange: 0,
+      saturationFromStep: 1,
     };
     // add to local storage
     storeScale(newScale);
